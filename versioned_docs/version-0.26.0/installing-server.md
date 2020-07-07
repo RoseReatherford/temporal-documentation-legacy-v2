@@ -10,7 +10,7 @@ Follow the Docker installation instructions found here: [https://docs.docker.com
 
 Follow the docker-compose installation instructions found here: [https://docs.docker.com/compose/install](https://docs.docker.com/compose/install)
 
-### Run Temporal Server Using docker-compose
+### Download temporal service
 
 Download the Temporal docker-compose file to preferred location (i.e. `quick_start` directory):
 
@@ -21,7 +21,9 @@ ls
 # docker-compose.yml
 ```
 
-Start Temporal Service:
+### Start Temporal Service
+
+To start the docker service, use the following command:
 
 ```bash
 docker-compose up
@@ -61,3 +63,23 @@ At this point Temporal Server is running! You can also see the web interface on 
 Try out [Java SDK](/docs/java-quick-start).
 
 Try out [Go SDK](/docs/go-quick-start).
+
+## Troubleshooting
+
+This section gives an overview of some troubleshooting cases. 
+
+### Couldn't connect to Docker daemon
+
+When doing `docker-compose up`, it may reply with the following error:
+
+```bash
+ERROR: Couldn't connect to Docker daemon. You might need to start Docker for Mac.
+```
+
+For some Mac users, this error means they have a permissioning error. The best fix is to simply use `sudo` like the following:
+
+```bash
+sudo docker-compose up
+```
+
+You should now see the Temporal server is up and running. 
