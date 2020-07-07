@@ -13,7 +13,7 @@ In this section, you prepare to do this tutorial from scratch.
 
 You must first run a Temporal server locally using [these instructions](/docs/installing-server).
 
-## Create a New Project
+### Create a New Project
 
 Create a new project to play around with. For this tutorial, we will assume it is a Gradle project for ease-of-use. 
 
