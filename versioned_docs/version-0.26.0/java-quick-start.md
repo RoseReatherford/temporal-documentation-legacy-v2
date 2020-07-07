@@ -3,15 +3,34 @@ id: java-quick-start
 title: Quick Start
 ---
 
-This topic helps you install the Temporal server and implement a workflow.
+This topic helps you implement a workflow in Java. 
 
-## Step 1: Install Temporal Server Locally
+## Prerequisites 
 
-To continue this tutorial, you must first run a Temporal server locally using [these instructions](/docs/installing-server).
+In this section, you prepare to do this tutorial from scratch. 
 
-## Implement Hello World Java Workflow
+### Run a Temporal Server Locally
 
-### Include Temporal Java SDK Dependency
+You must first run a Temporal server locally using [these instructions](/docs/installing-server).
+
+## Create a New Project
+
+Create a new project to play around with. For this tutorial, we will assume it is a Gradle project for ease-of-use. 
+
+## Installing the SDK
+
+In this section, we detail how to run Temporal using Maven. 
+
+### Prerequisites
+
+Add the following dependencies `temporal-sdk` relies on:
+
+```
+    compile group: 'commons-configuration', name: 'commons-configuration', version: '1.9'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+```
+
+### Temporal SDK
 
 Go to the [Maven Repository Temporal Java Client Page](https://oss.sonatype.org/#nexus-search;quick~temporal-sdk)
 and find the latest version of the library. Include it as a dependency into your Java project. For example if you
@@ -21,14 +40,29 @@ are using Gradle the dependency looks like:
     compile group: 'io.temporal', name: 'temporal-sdk', version: '<latest_version>'
 ```
 
-Also add the following dependencies that temporal-sdk relies on:
+### Logback Configuration 
 
-```
-    compile group: 'commons-configuration', name: 'commons-configuration', version: '1.9'
-    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+Add the following logback config file in your classpath:
+
+```xml
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <logger name="io.netty" level="INFO"/>
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
 ```
 
-Make sure that the following code compiles:
+### Check Compilation
+
+
 
 ```java
 import io.temporal.workflow.Workflow;
@@ -51,25 +85,7 @@ public class GettingStarted {
 If you are having problems setting up the build files use the
 [Temporal Java Samples](https://github.com/temporalio/temporal-java-samples) GitHub repository as a reference.
 
-Also add the following logback config file somewhere in your classpath:
-
-```xml
-<configuration>
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <!-- encoders are assigned the type
-             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
-        <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
-        </encoder>
-    </appender>
-    <logger name="io.netty" level="INFO"/>
-    <root level="INFO">
-        <appender-ref ref="STDOUT" />
-    </root>
-</configuration>
-```
-
-### Implement Hello World Workflow
+## Implement Hello World Workflow
 
 Let's add `HelloWorldImpl` with the `sayHello` method that just logs the "Hello ..." and returns.
 
